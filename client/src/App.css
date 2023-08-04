@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  width:20%;
+  pointer-events: none;
+  text-align: left;
+}
+  
+
+.App-header {
+  background-color: #282c34;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #FF6700;
+  border-bottom: 2px solid #FF6700;
+} 
+.App-body{
+  background-color: #4c5057;
+  min-height: 71vh;
+  color: #FF6700;
+  padding-top: 5vh;
+
+}
+.Inputs{
+  text-align: left;
+}
+
+.Inputs label{
+  width: 23vw;
+}
+.Submit{
+  margin-left: 120px;
+}
+.Results table{
+  margin: auto;
+}
+.Results table th, td {
+  border: 1px solid #FF6700;
+  border-collapse: collapse;
+  padding: 10px;
+}

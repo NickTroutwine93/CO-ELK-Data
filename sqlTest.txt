@@ -1,0 +1,1 @@
+SELECT TOP (1000) [Unit], [PercSucc], [hunters] FROM [GMU_DATA].[dbo].[Test1]
