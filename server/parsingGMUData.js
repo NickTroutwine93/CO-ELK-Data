@@ -1,8 +1,8 @@
-exports.parsingGMUData = function (data,params) {
+exports.parsingGMUData = function (data,success,hunters) {
     var payload = "<table className='data-table'><thead><tr><th>unit</th><th>bulls</th><th>cows</th><th>calves</th><th>totalHarvest</th><th>totalHunters</th><th>PercSuccess</th><th>totalDays</th><tbody>";
     var length = data["units"].length;
     for(var i = 0; i<length; i++){
-        if(data["units"][i]["PercSuccess"]>=params){
+        if(data["units"][i]["PercSuccess"]>=success&&data["units"][i]["totalHunters"]<=hunters){
             console.log(data["units"][i])
             var unit = data["units"][i]["unit"];
             var bulls = data["units"][i]["bulls"];

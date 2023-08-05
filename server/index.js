@@ -11,7 +11,8 @@ const mockData = require('./mock.json');
 
 app.get("/api", (req, res) => {
   let success = req.query.success
-  var fakeResponse = pd.parsingGMUData(mockData,success);
+  let hunters = req.query.hunters;
+  var fakeResponse = pd.parsingGMUData(mockData,success,hunters);
   res.json({ message: fakeResponse });
 });
 

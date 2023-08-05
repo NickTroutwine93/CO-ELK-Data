@@ -12,11 +12,11 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    getSuccess(success);
+    getSuccess(success,hunters);
   }
-  const getSuccess=(value)=>
+  const getSuccess=(success,hunters)=>
   {
-      fetch('/api?success='+value)
+      fetch('/api?success='+success+'&hunters='+hunters)
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }
