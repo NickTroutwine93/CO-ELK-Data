@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/co-elk-data/static/css/main.01d85f1e.css",
-    "main.js": "/co-elk-data/static/js/main.69c1d48a.js",
-    "static/js/787.c4e7f8f9.chunk.js": "/co-elk-data/static/js/787.c4e7f8f9.chunk.js",
-    "index.html": "/co-elk-data/index.html",
-    "main.01d85f1e.css.map": "/co-elk-data/static/css/main.01d85f1e.css.map",
-    "main.69c1d48a.js.map": "/co-elk-data/static/js/main.69c1d48a.js.map",
-    "787.c4e7f8f9.chunk.js.map": "/co-elk-data/static/js/787.c4e7f8f9.chunk.js.map"
+    "main.css": "/static/css/main.01d85f1e.css",
+    "main.js": "/static/js/main.a6781202.js",
+    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/index.html",
+    "main.01d85f1e.css.map": "/static/css/main.01d85f1e.css.map",
+    "main.a6781202.js.map": "/static/js/main.a6781202.js.map",
+    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01d85f1e.css",
-    "static/js/main.69c1d48a.js"
+    "static/js/main.a6781202.js"
   ]
 }
