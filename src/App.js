@@ -5,7 +5,7 @@ import logo from "./900dfdfe3610cf5e77403d64ae15264c.png";
 import "./App.css";
 
 function App() {
-	//data that will be injected as table in response
+	//data that will be injected as table from response
 	const [data, setData] = React.useState(null);
 	//#number of records will get updated with response as well
 	const [results, setResults] = React.useState("0");
@@ -18,7 +18,7 @@ function App() {
 		event.preventDefault();
 		getSuccess(success,hunters,harvest);
 	}
-	//Get request for mock data. Will eventually replace with get request to real DB
+	//Get request for mock data. Will eventually replace with request to DB
 	const getSuccess=(success,hunters,harvest)=>
 	{
 		fetch('/api?success='+success+'&hunters='+hunters+'&harvest='+harvest)
