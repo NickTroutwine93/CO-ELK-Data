@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.01d85f1e.css",
-    "main.js": "/static/js/main.a6781202.js",
-    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
-    "index.html": "/index.html",
-    "main.01d85f1e.css.map": "/static/css/main.01d85f1e.css.map",
-    "main.a6781202.js.map": "/static/js/main.a6781202.js.map",
-    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+    "main.css": "/CO-ELK-DATA/static/css/main.01d85f1e.css",
+    "main.js": "/CO-ELK-DATA/static/js/main.3404eb5b.js",
+    "static/js/787.28cb0dcd.chunk.js": "/CO-ELK-DATA/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/CO-ELK-DATA/index.html",
+    "main.01d85f1e.css.map": "/CO-ELK-DATA/static/css/main.01d85f1e.css.map",
+    "main.3404eb5b.js.map": "/CO-ELK-DATA/static/js/main.3404eb5b.js.map",
+    "787.28cb0dcd.chunk.js.map": "/CO-ELK-DATA/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01d85f1e.css",
-    "static/js/main.a6781202.js"
+    "static/js/main.3404eb5b.js"
   ]
 }
