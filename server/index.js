@@ -10,10 +10,11 @@ const pd = require('./parsingGMUData');
 const mockData = require('./mock.json');
 
 app.get("/api", (req, res) => {
-  let success = req.query.success
+  let success = req.query.success;
   let hunters = req.query.hunters;
-  console.log(mockData,success,hunters)
-  var fakeResponse = pd.parsingGMUData(mockData,success,hunters);
+  let harvest = req.query.harvest;
+  console.log(mockData,success,hunters,harvest)
+  var fakeResponse = pd.parsingGMUData(mockData,success,hunters,harvest);
   console.log(fakeResponse,"s",success,"h",hunters)
   res.json({ message: fakeResponse });
 });
