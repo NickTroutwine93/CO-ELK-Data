@@ -44,11 +44,34 @@ body{
 .center{
   text-align: center;
 }
+.data-table{
+  
+  border-collapse: collapse;
+}
 .results table{
   margin: auto;
   border-collapse: collapse;
+  background-color: #000000;
 }
 .results table th, td {
   border: 1px solid #FF6700;
   padding: 10px;
+}
+.submit{
+  min-width: 200px;
+  margin-top: 10px;
+  color: #FF6700;
+  background-color: black;
+  font-weight: bolder;
+  font-size: 15px;
+  position:relative;
+}
+.submit:hover{
+  cursor: pointer;
+  background-color: #282c34;
+}
+.submit:active{
+  background-color: black;
+  position:relative;
+  top:1px;
 }
