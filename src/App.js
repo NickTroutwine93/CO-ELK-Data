@@ -244,7 +244,14 @@ try {
 		console.log(i);
 		console.log("unit",unit);
 			const docRef = await addDoc(collection(db, "all-seasons"), {
-				unit
+				unit: unit.unit,
+				bulls: unit.bulls,
+				cows: unit.cows,
+				calves: unit.calves,
+				totalHarvest: unit.totalHarvest,
+				totalHunters: unit.totalHunters,
+				PercSuccess: unit.PercSuccess,
+				totalDays: unit.totalDays
 			});
 			console.log("Document written with ID: ", docRef.id);
 		
