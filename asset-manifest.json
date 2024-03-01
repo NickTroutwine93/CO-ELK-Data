@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CO-ELK-Data/static/css/main.01d85f1e.css",
-    "main.js": "/CO-ELK-Data/static/js/main.a5037849.js",
+    "main.js": "/CO-ELK-Data/static/js/main.44a98901.js",
     "static/js/787.28cb0dcd.chunk.js": "/CO-ELK-Data/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/CO-ELK-Data/index.html",
     "main.01d85f1e.css.map": "/CO-ELK-Data/static/css/main.01d85f1e.css.map",
-    "main.a5037849.js.map": "/CO-ELK-Data/static/js/main.a5037849.js.map",
+    "main.44a98901.js.map": "/CO-ELK-Data/static/js/main.44a98901.js.map",
     "787.28cb0dcd.chunk.js.map": "/CO-ELK-Data/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01d85f1e.css",
-    "static/js/main.a5037849.js"
+    "static/js/main.44a98901.js"
   ]
 }
