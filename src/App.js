@@ -53,15 +53,6 @@ try {
 //let querySnapshot = await getDocs(collection(db, season));
 
 
-const q = query(collection(db, "all-seasons"), where("PercSuccess", ">=", 50));
-
-const querySnapshot = await getDocs(q);
-querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  console.log(doc);
-  console.log(doc.id, " => ", doc.data());
-});
-
 function App() {
 	//data that will be injected as table from response
 	const [data, setData] = React.useState(null);
@@ -75,7 +66,52 @@ function App() {
 	const handleSubmit = (event) => {
 		//console.log(event);
 		event.preventDefault();
-		getSuccess(success,hunters,harvest);
+		GetData(success,hunters,harvest);
+		async function GetData(success,hunters,harvest){
+			console.log("data");
+			var successInt = Number(success);
+			var huntersInt = Number(hunters);
+			var harvestInt = Number(harvest);
+			console.log(huntersInt,harvestInt);
+			var proccessData = [];
+			let q = query(collection(db, "all-seasons"), where("PercSuccess", ">=", successInt));
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+			  // doc.data() is never undefined for query doc snapshots
+			  var dataCall = doc.data();
+			  console.log(dataCall);
+			  console.log(dataCall.totalHarvest,harvestInt);
+			
+			  if((dataCall.totalHarvest >= harvestInt)&&(dataCall.totalHunters <= huntersInt)){
+				proccessData.push(doc.data());
+			  }
+			});
+			buildTable(proccessData);
+		} 
+		function buildTable(data){
+			console.log(data);
+			var resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>bulls</th><th>cows</th><th>calves</th><th>totalHarvest</th><th>totalHunters</th><th>PercSuccess</th><th>totalDays</th><tbody>";
+			var datalength = data.length
+			var returnLength = 0;
+			console.log(datalength);
+			for (let i = 0; i < datalength; i++) {
+				console.log(i);
+				returnLength++
+				var unit = data[i]["unit"];
+				var bulls = data[i]["bulls"];
+				var cows = data[i]["cows"];
+				var calves = data[i]["calves"];
+				var totalHarvest = data[i]["totalHarvest"];
+				var totalHunters = data[i]["totalHunters"];
+				var PercSuccess = data[i]["PercSuccess"];
+				var totalDays = data[i]["totalDays"];
+		
+				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"</td><td>"+totalDays+"</td></tr>";
+			}
+			resultsTable+="</tbody></table>"
+			setData(resultsTable)
+			setResults(returnLength)
+		}
 	}
 	//Get request for mock data. Will eventually replace with request to DB
 	const getSuccess=(success,hunters,harvest)=>
