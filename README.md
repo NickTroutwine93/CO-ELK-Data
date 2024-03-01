@@ -4,4 +4,4 @@ https://nicktroutwine93.github.io/CO-ELK-Data/
 ![fullrecords](https://github.com/NickTroutwine93/CO-ELK-Data/assets/72481848/6ed59153-05ee-4c84-a5f9-aa3d25e049ba)
 
 <strong>Note To Self</strong>
-For git hub pages deployment delete build folder. In console run "npm run predeployment" or "npm run build" then can run "npm run deployment".
+For git hub pages deployment delete build folder. In console run "npm run build" then "npm run predeploy" then can run "npm run deployment".
