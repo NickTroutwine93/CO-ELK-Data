@@ -5,3 +5,4 @@ https://nicktroutwine93.github.io/CO-ELK-Data/
 
 <strong>Note To Self</strong>
 For git hub pages deployment delete build folder. In console run "npm run build" then "npm run predeploy" then can run "npm run deployment".
+<p><strong>For weather api location ask user to input a city, landmark or coordinates relative to their hunt in the unit options they have filtered for and we will use that for weather api call instead of mapping out pgs coords/cities of GMU</strong></p>
