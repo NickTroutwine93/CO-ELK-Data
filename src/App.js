@@ -1,13 +1,26 @@
 // client/src/App.js
 
 import React from "react";
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import MenuItem from '@mui/material/MenuItem';
 import logo from "./900dfdfe3610cf5e77403d64ae15264c.png";
 import "./App.css";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc, getDocs, query, where  } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, orderBy  } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -242,6 +255,37 @@ const db = getFirestore(app1);
 //let season = "all-seasons"
 //let querySnapshot = await getDocs(collection(db, season));
 
+const successMarks = [
+	{
+		value: 0,
+		label: '0',
+	},
+	{
+		value: 100,
+		label: '100',
+	}
+];
+const hunterMarks = [
+	{
+		value: 0,
+		label: '0',
+	},
+	{
+		value: 2000,
+		label: '2000',
+	}
+];
+const harvestMarks = [
+	{
+		value: 0,
+		label: '0',
+	},
+	{
+		value: 500,
+		label: '500',
+	}
+];
+  
 
 function App() {
 	//data that will be injected as table from response
@@ -249,9 +293,10 @@ function App() {
 	//#number of records will get updated with response as well
 	const [results, setResults] = React.useState("0");
 	//Variables that will be paramaters for get request. Value is set by input fields;
-	const [success, setSuccess] = React.useState("0");
-	const [hunters, setHunters] = React.useState("1000");
-	const [harvest, setHarvest] = React.useState("0");
+	const [success, setSuccess] = React.useState(0);
+	const [hunters, setHunters] = React.useState(2000);
+	const [harvest, setHarvest] = React.useState(0);
+	const [season, setSeason] = React.useState("2022-all-rifle");
 	
 	const handleSubmit = (event) => {
 		//console.log(event);
@@ -264,7 +309,7 @@ function App() {
 			var harvestInt = Number(harvest);
 			console.log(successInt);
 			var proccessData = [];
-			let q = query(collection(db, "2022-all-rifle"), where("percSuccess", ">=", successInt));
+			let q = query(collection(db, season), where("percSuccess", ">=", successInt), orderBy("percSuccess", "desc"));
 			const querySnapshot = await getDocs(q);
 			console.log(querySnapshot);
 			querySnapshot.forEach((doc) => {
@@ -282,7 +327,7 @@ function App() {
 		function buildTable(data){
 			console.log(data);
 			var resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>Bulls</th><th>Cows</th><th>Calves</th><th>Total Harvest</th><th>Total Hunters</th><th>Percent Success</th><th>Days</th><tbody>";
-			var datalength = data.length
+			var datalength = data.length;
 			var returnLength = 0;
 			console.log(datalength);
 			for (let i = 0; i < datalength; i++) {
@@ -299,9 +344,9 @@ function App() {
 		
 				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"</td><td>"+totalDays+"</td></tr>";
 			}
-			resultsTable+="</tbody></table>"
-			setData(resultsTable)
-			setResults(returnLength)
+			resultsTable+="</tbody></table>";
+			setData(resultsTable);
+			setResults(returnLength);
 		}
 	}
 	//Get request for mock data. Will eventually replace with request to DB
@@ -329,36 +374,74 @@ return (
       	<div className="app-body">
         	<div className="inputs">
 				<form onSubmit={handleSubmit}>
-					<table className='data-table'>
+					<table className='data-table season-input-group'>
 						<tr>
-							<th>Success</th>
-							<th>Total Hunters</th> 
-							<th>Total Harvest</th>  
+							<th>Season</th>
 						</tr>
 						<tr>
+							<td> 
+								<Select
+								  labelId="season-dropdown-label"
+								  id="season-dropdown-select"
+								  value={season}
+								  label="Season"
+								  onChange={(e) => setSeason(e.target.value)}
+								>
+								  <MenuItem value={"2022-all-rifle"}>2022 All Rifle</MenuItem>
+								  <MenuItem value={"2022-first-rifle"}>2022 First Rifle</MenuItem>
+								  <MenuItem value={"2022-second-rifle"}>2022 Second Rifle</MenuItem>
+								</Select>
+							</td>
+						</tr>
+					</table>
+					<table className='data-table data-points'> 
+						<tr className="sliders">
 							<td>
-								<input 
-									type="number" 
+								<Box>
+									<Typography className="labels" gutterBottom>
+										Min Harvest
+									</Typography>
+								  <Slider
+									aria-label="Always visible"
+									step={10}
+									marks={harvestMarks}
+									valueLabelDisplay="on"
+									value={harvest}
+									max={500}
+									onChange={(e) => setHarvest(e.target.value)}
+								  />
+								</Box>
+							</td>
+							<td> 
+								<Box>
+									<Typography className="labels" gutterBottom>
+										Max Hunters
+									</Typography>
+								  <Slider
+									aria-label="Always visible"
+									step={10}
+									marks={hunterMarks}
+									valueLabelDisplay="on"
+									value={hunters}
+									max={2000}
+									onChange={(e) => setHunters(e.target.value)}
+								  />
+								</Box>
+							</td>
+							<td>
+								<Box>
+									<Typography className="labels" gutterBottom>
+										Min Success %
+									</Typography>
+								  <Slider
+									aria-label="Always visible"
+									step={1}
+									marks={successMarks}
+									valueLabelDisplay="on"
 									value={success}
 									onChange={(e) => setSuccess(e.target.value)}
-									max="100"
-								/>
-							</td>
-							<td>
-								<input 
-									type="number" 
-									value={hunters}
-									onChange={(e) => setHunters(e.target.value)}
-									max="1000"
-								/>
-							</td>
-							<td>
-								<input 
-									type="number" 
-									value={harvest}
-									onChange={(e) => setHarvest(e.target.value)}
-									max="1000"
-								/>
+								  />
+								</Box>
 							</td>
 						</tr>
 					</table> 
@@ -367,8 +450,11 @@ return (
 					</div>
 				</form>
 			</div>
-			<p>Results Found: <span dangerouslySetInnerHTML={{ __html: results }}></span></p>
+			<p className="records">Results Found: <span dangerouslySetInnerHTML={{ __html: results }}></span></p>
 			<div className="results" dangerouslySetInnerHTML={{ __html: data }}></div>
+ 
+
+
       	</div>
     </div>
   );
