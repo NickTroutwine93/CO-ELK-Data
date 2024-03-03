@@ -274,7 +274,7 @@ function App() {
 		} 
 		function buildTable(data){
 			console.log(data);
-			var resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>Bulls</th><th>Cows</th><th>Calves</th><th>Total Harvest</th><th>Total Hunters</th><th>Percent Success</th><th>Days</th><tbody>";
+			var resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>Bulls</th><th>Cows</th><th>Calves</th><th>Total Harvest</th><th>Hunters</th><th>Success</th><th>Days</th><tbody>";
 			var datalength = data.length;
 			var returnLength = 0;
 			console.log(datalength);
@@ -290,7 +290,7 @@ function App() {
 				var PercSuccess = data[i]["percSuccess"];
 				var totalDays = data[i]["totalDays"];
 		
-				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"</td><td>"+totalDays+"</td></tr>";
+				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"%</td><td>"+totalDays+"</td></tr>";
 			}
 			resultsTable+="</tbody></table>";
 			setData(resultsTable);
@@ -352,6 +352,7 @@ return (
 										Min Harvest
 									</Typography>
 								  <Slider
+								  	className="slider"
 									aria-label="Always visible"
 									step={10}
 									marks={harvestMarks}
@@ -368,6 +369,7 @@ return (
 										Max Hunters
 									</Typography>
 								  <Slider
+								  	className="slider"
 									aria-label="Always visible"
 									step={10}
 									marks={hunterMarks}
@@ -384,6 +386,7 @@ return (
 										Min Success %
 									</Typography>
 								  <Slider
+								  	className="slider"
 									aria-label="Always visible"
 									step={1}
 									marks={successMarks}

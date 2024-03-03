@@ -67,11 +67,15 @@ body{
 .data-table.data-points .sliders td{
   padding: 10px 30px;
   width: 33%;
+  background-color: #232323;
 }
-.data-table.data-points .sliders td .css-yafthl-MuiSlider-markLabel,.data-table.data-points .sliders td .css-1eoe787-MuiSlider-markLabel{
-  color: #ff890b;
+.data-table.data-points .sliders td .slider *,.data-table.data-points .sliders td .slider *{
+  color: #ff890b!important;
 }
-.data-table.data-points .css-1aznpnh-MuiSlider-root{
+.data-table.data-points .sliders td .slider .MuiSlider-valueLabelLabel,.data-table.data-points .sliders td .slider .MuiSlider-valueLabelLabel{
+  color: white!important;
+}
+.data-table.data-points .season-dropdown-select{
   color: #ff890b;
 }
 .results table{
