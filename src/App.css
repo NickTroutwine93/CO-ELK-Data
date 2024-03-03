@@ -67,7 +67,7 @@ body{
 .data-table.data-points .sliders td{
   padding: 10px 30px;
   width: 33%;
-  background-color: #232323;
+  background-color: #282c34;
 }
 .data-table.data-points .sliders td .slider *,.data-table.data-points .sliders td .slider *{
   color: #ff890b!important;
