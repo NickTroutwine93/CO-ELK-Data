@@ -202,7 +202,12 @@ const db = getFirestore(app1);
   } */
 //let season = "all-seasons"
 //let querySnapshot = await getDocs(collection(db, season));
+const otcGmu ={
+    gmuPublicOnly: [6, 15, 16, 17, 18, 21, 22, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 42, 43, 44, 45, 47, 52, 53, 54, 55, 59, 60, 62, 63, 64, 65, 68, 70, 71, 72, 73, 74, 75, 77, 78, 80, 81, 82],
+    gmuBoth: [85, 86, 133, 134, 140, 141, 142, 161, 171, 181, 361, 371, 411, 421, 431, 444, 471, 511, 521, 551, 581, 591, 681, 691, 711, 741, 751, 771, 851],
+    gmuPrivateOnly: [3, 4, 5, 11, 12, 13, 14, 23, 24, 131, 211, 214, 231, 301, 441]
 
+}
 const successMarks = [
 	{
 		value: 0,
@@ -252,17 +257,17 @@ function App() {
 		GetData(success,hunters,harvest);
 		async function GetData(success,hunters,harvest){
 			console.log("data");
-			var successInt = Number(success);
-			var huntersInt = Number(hunters);
-			var harvestInt = Number(harvest);
+			let successInt = Number(success);
+			let huntersInt = Number(hunters);
+			let harvestInt = Number(harvest);
 			console.log(successInt);
-			var proccessData = [];
+			let proccessData = [];
 			let q = query(collection(db, season), where("percSuccess", ">=", successInt), orderBy("percSuccess", "desc"));
 			const querySnapshot = await getDocs(q);
 			console.log(querySnapshot);
 			querySnapshot.forEach((doc) => {
 			  // doc.data() is never undefined for query doc snapshots
-			  var dataCall = doc.data();
+			  let dataCall = doc.data();
 			  console.log("dataCall",dataCall);
 			  console.log(dataCall.totalHarvest,harvestInt);
 			
@@ -274,23 +279,34 @@ function App() {
 		} 
 		function buildTable(data){
 			console.log(data);
-			var resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>Bulls</th><th>Cows</th><th>Calves</th><th>Total Harvest</th><th>Hunters</th><th>Success</th><th>Days</th><tbody>";
-			var datalength = data.length;
-			var returnLength = 0;
+			let resultsTable = "<table class='data-table'><thead><tr><th>unit</th><th>Bulls</th><th>Cows</th><th>Calves</th><th>Total Harvest</th><th>Hunters</th><th>Success</th><th>Days</th><th>OTC Status</th><tbody>";
+			let datalength = data.length;
+			let returnLength = 0;
 			console.log(datalength);
 			for (let i = 0; i < datalength; i++) {
 				console.log(i);
 				returnLength++
-				var unit = data[i]["unit"];
-				var bulls = data[i]["bulls"];
-				var cows = data[i]["cows"];
-				var calves = data[i]["calves"];
-				var totalHarvest = data[i]["totalHarvest"];
-				var totalHunters = data[i]["totalHunters"];
-				var PercSuccess = data[i]["percSuccess"];
-				var totalDays = data[i]["totalDays"];
-		
-				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"%</td><td>"+totalDays+"</td></tr>";
+				let unit = data[i]["unit"];
+				let bulls = data[i]["bulls"];
+				let cows = data[i]["cows"];
+				let calves = data[i]["calves"];
+				let totalHarvest = data[i]["totalHarvest"];
+				let totalHunters = data[i]["totalHunters"];
+				let PercSuccess = data[i]["percSuccess"];
+				let totalDays = data[i]["totalDays"];
+				let otcStatus = "Draw Only";
+				if((season.includes("second"))||(season.includes("third"))){
+					if(otcGmu.gmuBoth.includes(unit)){
+						otcStatus = "Both"
+					}
+					if(otcGmu.gmuPublicOnly.includes(unit)){
+						otcStatus = "Public"
+					}
+					if(otcGmu.gmuPrivateOnly.includes(unit)){
+						otcStatus = "Private"
+					}
+				}
+				resultsTable+= "<tr><td>"+unit+"</td><td>"+bulls+"</td><td>"+cows+"</td><td>"+calves+"</td><td>"+totalHarvest+"</td><td>"+totalHunters+"</td><td>"+PercSuccess+"%</td><td>"+totalDays+"</td><td>"+otcStatus+"</td></tr>";
 			}
 			resultsTable+="</tbody></table>";
 			setData(resultsTable);
@@ -327,7 +343,7 @@ return (
 							<th>Season</th>
 						</tr>
 						<tr>
-							<td> 
+							<td id="season-dropdown"> 
 								<Select
 								  labelId="season-dropdown-label"
 								  id="season-dropdown-select"

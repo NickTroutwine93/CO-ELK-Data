@@ -34,7 +34,10 @@ body{
   padding-bottom: 50px;
 
 }
-.app-body .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+.app-body #season-dropdown .MuiInputBase-root{
+  width: 100%;
+}
+.app-body #season-dropdown-select{
   background-color: #f3f3f3;
   width: 100%;
 }
@@ -115,9 +118,12 @@ body{
       align-items:center;
     }
     .data-table.data-points .sliders td{
-      width: 50%;
+      width: 70%;
     }
     .results{
       overflow-x: auto;
+    }
+    .season-input-group{
+      min-width: 70%; 
     }
 }
