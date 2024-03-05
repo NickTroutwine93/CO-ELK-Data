@@ -131,4 +131,12 @@ body{
     .season-input-group{
       min-width: 70%; 
     }
+    .records .MuiDataGrid-root .MuiDataGrid-withBorderColor:first-child{
+      min-width: 40px!important;
+      text-align: center;
+    }
+    .records .MuiDataGrid-root .MuiDataGrid-withBorderColor{
+      min-width: 130px!important;
+      text-align: center;
+    }
 }

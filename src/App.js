@@ -170,15 +170,15 @@ function App() {
 			}
 			console.log(unitData);
 			const columns = [
-				{ field: 'unit', headerName: 'Unit', width: 70 },
-				{ field: 'bulls', headerName: 'Bulls', width: 70  },
-				{ field: 'cows', headerName: 'Cows', width: 70 },
-				{ field: 'calves', headerName: 'Calves', width: 70 },
-				{ field: 'totalHarvest', headerName: 'Harvest', width: 70  },
-				{ field: 'totalHunters', headerName: 'Hunters', width: 70 },
-				{ field: 'percSuccess', headerName: 'Success', width: 70  },
-				{ field: 'totalDays', headerName: 'Days', width: 70 },
-				{ field: 'otc', headerName: 'OTC Status', width: 110  }
+				{ field: 'unit', headerName: 'Unit', flex: 1 },
+				{ field: 'bulls', headerName: 'Bulls', flex: 1  },
+				{ field: 'cows', headerName: 'Cows', flex: 1 },
+				{ field: 'calves', headerName: 'Calves', flex: 1 },
+				{ field: 'totalHarvest', headerName: 'Harvest', flex: 1  },
+				{ field: 'totalHunters', headerName: 'Hunters', flex: 1 },
+				{ field: 'percSuccess', headerName: 'Success', flex: 1  },
+				{ field: 'totalDays', headerName: 'Days', flex: 1 },
+				{ field: 'otc', headerName: 'OTC Status', flex: 1 }
 			];
 			let dt = ResultsDataTable(unitData,columns)
 			setData(dt);
