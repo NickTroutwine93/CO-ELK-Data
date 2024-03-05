@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import { DataGrid } from '@mui/x-data-grid';
+
 import Typography from '@mui/material/Typography';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Box from '@mui/material/Box';
@@ -18,6 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import logo from "./900dfdfe3610cf5e77403d64ae15264c.png";
 import "./App.css";
 import ResultsDataTable from "./client/components/data-table.js";
+import addOTC from "./client/components/add-otc.js";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -47,31 +49,7 @@ const firebaseConfig = {
 const app1 = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app1);
 const db = getFirestore(app1); 
-/*try {
-	console.log("tru");
-	console.log(gmuData.units.length)
-	for(var i=0; i<gmuData.units.length; i++){
-		var unit = gmuData.units[i];
-		console.log(i);
-		console.log("unit",unit);
-			const docRef = await addDoc(collection(db, "2022-fourth-rifle"), {
-				unit: unit.unit,
-				bulls: unit.bulls,
-				cows: unit.cows,
-				calves: unit.calves,
-				totalHarvest: unit.totalHarvest,
-				totalHunters: unit.totalHunters,
-				percSuccess: unit.percSuccess,
-				totalDays: unit.totalDays
-			});
-			console.log("Document written with ID: ", docRef.id);
-		
-	}
-} catch (e) {
-	console.error("Error adding document: ", e);
-  } */
-//let season = "all-seasons"
-//let querySnapshot = await getDocs(collection(db, season));
+
 const otcGmu ={
     gmuPublicOnly: [6, 15, 16, 17, 18, 21, 22, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 42, 43, 44, 45, 47, 52, 53, 54, 55, 59, 60, 62, 63, 64, 65, 68, 70, 71, 72, 73, 74, 75, 77, 78, 80, 81, 82],
     gmuBoth: [85, 86, 133, 134, 140, 141, 142, 161, 171, 181, 361, 371, 411, 421, 431, 444, 471, 511, 521, 551, 581, 591, 681, 691, 711, 741, 751, 771, 851],
@@ -119,10 +97,18 @@ function App() {
 	const [success, setSuccess] = React.useState(0);
 	const [hunters, setHunters] = React.useState(2000);
 	const [harvest, setHarvest] = React.useState(0);
-	const [season, setSeason] = React.useState("2022-all-rifle");
+	const [year, setYear] = React.useState("2022");
+	const [season, setSeason] = React.useState("all-rifle");
 	
 	const handleSubmit = (event) => {
-		//console.log(event);
+
+
+
+		//ONLY USE TO UPDATE OTC STATUS ON EXISTING RECORDS
+		//addOTC(db);
+
+
+
 		event.preventDefault();
 		GetData(success,hunters,harvest);
 		async function GetData(success,hunters,harvest){
@@ -132,7 +118,8 @@ function App() {
 			let harvestInt = Number(harvest);
 			//console.log(successInt);
 			let proccessData = [];
-			let q = query(collection(db, season), where("percSuccess", ">=", successInt), orderBy("percSuccess", "desc"));
+			let table = year+"-"+season;
+			let q = query(collection(db, table), where("percSuccess", ">=", successInt), orderBy("percSuccess", "desc"));
 			const querySnapshot = await getDocs(q);
 			//console.log(querySnapshot);
 			querySnapshot.forEach((doc) => {
@@ -140,9 +127,9 @@ function App() {
 			  let dataCall = doc.data();
 			  //console.log("dataCall",dataCall);
 			  //console.log(dataCall.totalHarvest,harvestInt);
-			
+				dataCall["id"] = doc.id;
 			  if((dataCall.totalHarvest >= harvestInt)&&(dataCall.totalHunters <= huntersInt)){
-				proccessData.push(doc.data());
+				proccessData.push(dataCall);
 			  }
 			});
 			buildTable(proccessData);
@@ -151,24 +138,6 @@ function App() {
 		function buildTable(unitData){
 			let datalength = unitData.length;
 			//console.log(datalength);
-			for (let i = 0; i < datalength; i++) {
-				let unit = unitData[i]["unit"];
-				let otcStatus = "Draw Only";
-				if((season.includes("second"))||(season.includes("third"))){
-					if(otcGmu.gmuBoth.includes(unit)){
-						otcStatus = "Both"
-					}
-					if(otcGmu.gmuPublicOnly.includes(unit)){
-						otcStatus = "Public"
-					}
-					if(otcGmu.gmuPrivateOnly.includes(unit)){
-						otcStatus = "Private"
-					}
-				}
-				unitData[i]["otc"] = otcStatus;
-				unitData[i]["id"] = i;
-			}
-			console.log(unitData);
 			const columns = [
 				{ field: 'unit', headerName: 'Unit', flex: 1 },
 				{ field: 'bulls', headerName: 'Bulls', flex: 1  },
@@ -195,9 +164,25 @@ return (
 				<form onSubmit={handleSubmit}>
 					<table className='data-table season-input-group'>
 						<tr>
+							<th>Year</th>
 							<th>Season</th>
 						</tr>
 						<tr>
+							<td id="year-dropdown"> 
+								<Select
+								  labelId="year-dropdown-label"
+								  id="year-dropdown-select"
+								  value={year}
+								  label="year"
+								  onChange={(e) => setYear(e.target.value)}
+								>
+								  <MenuItem value={"2022"}>2022</MenuItem>
+								  <MenuItem value={"2021"}>2021</MenuItem>
+								  <MenuItem value={"2020"}>2020</MenuItem>
+								  <MenuItem value={"2019"}>2019</MenuItem>
+								  <MenuItem value={"2019"}>2018</MenuItem>
+								</Select>
+							</td>
 							<td id="season-dropdown"> 
 								<Select
 								  labelId="season-dropdown-label"
@@ -206,11 +191,11 @@ return (
 								  label="Season"
 								  onChange={(e) => setSeason(e.target.value)}
 								>
-								  <MenuItem value={"2022-all-rifle"}>2022 All Rifle</MenuItem>
-								  <MenuItem value={"2022-first-rifle"}>2022 First Rifle</MenuItem>
-								  <MenuItem value={"2022-second-rifle"}>2022 Second Rifle</MenuItem>
-								  <MenuItem value={"2022-third-rifle"}>2022 Third Rifle</MenuItem>
-								  <MenuItem value={"2022-fourth-rifle"}>2022 Fourth Rifle</MenuItem>
+								  <MenuItem value={"all-rifle"}>All Rifle</MenuItem>
+								  <MenuItem value={"first-rifle"}>First Rifle</MenuItem>
+								  <MenuItem value={"second-rifle"}>Second Rifle</MenuItem>
+								  <MenuItem value={"third-rifle"}>Third Rifle</MenuItem>
+								  <MenuItem value={"fourth-rifle"}>Fourth Rifle</MenuItem>
 								</Select>
 							</td>
 						</tr>

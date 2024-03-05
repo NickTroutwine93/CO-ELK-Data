@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
 export default function createDataTable(unitData,columns) {
-    console.log(columns);
+    //console.log(columns)
+    
     return(
         <div style={{ height: 'auto', width: '100%' }}>
             <DataGrid
